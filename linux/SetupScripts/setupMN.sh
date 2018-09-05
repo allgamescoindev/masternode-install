@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 #Update and install some dependencies
 
@@ -13,7 +13,7 @@ NC='\033[0m'; \
 # Check if firewall installed, if so open required ports.
 echo -e "$RED=== Checking if firewall is installed/active ===$NC";
 ufw status | grep -qw active;
-if (($? == 0));then
+if (( $? == 0 ));then
     echo "$RED=== Firewall found, opening required ports ===$NC";
     ufw allow 22;
     ufw allow 7207;
@@ -24,11 +24,12 @@ fi
 echo -e "$RED=== Checking if total system memory is below 2 GB, if so create swap space ===$NC";
 #Check if swap need to be enabled.
 totalk=$(awk '/^MemTotal:/{print $2}' /proc/meminfo) ;
-if (($totalk <  1999999)) ; then
+if (( $totalk <  1999999 )) ; then
     echo -e "$RED=== Total system memory is below 2 GB, attempting to create swap space ===$NC";
     cd;
     dd if=/dev/zero of=swapfile bs=1M count=3000;
     mkswap swapfile;
+    chmod 600 swapfile;
     swapon swapfile;
     echo "/swapfile none swap sw 0 0" >> /etc/fstab;
 fi
@@ -72,20 +73,16 @@ echo "masternodeprivkey=$masternodekey" >> ~/.allgamescoincore/allgamescoin.conf
 
 echo "allgamescoind --daemon -datadir=/root/.allgamescoincore" >> /etc/rc.local;
 
-read -p "Attempt to install sentinel? (if this fails, install manually please) [Yy] " -n 1 -r;
-echo    # (optional) move to a new line;
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    apt-get install python3-pip -y;
-    pip3 install virtualenv;
-    cd ~;
-    git clone https://github.com/allgamescoindev/sentinel.git && cd sentinel;
-    virtualenv ./venv;
-    ./venv/bin/pip install -r requirements.txt;
-fi
+echo -e "$RED=== Installing Sentinel ===$NC";
+apt-get install python3-pip -y;
+pip3 install virtualenv;
+cd ~;
+git clone https://github.com/allgamescoindev/sentinel.git && cd sentinel;
+virtualenv ./venv;
+./venv/bin/pip install -r requirements.txt;
+
 
 read -p "Attempt to add job for sentinel to crontab? (if this fails, add it manually please)  [Yy] " -n 1 -r;
-echo    # (optional) move to a new line;
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     crontab -l > mycron;
