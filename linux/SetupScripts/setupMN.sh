@@ -82,7 +82,7 @@ virtualenv ./venv;
 ./venv/bin/pip install -r requirements.txt;
 
 
-read -p "Attempt to add job for sentinel to crontab? (if this fails, add it manually please)  [Yy] " -n 1 -r;
+read -p "Attempt to add job for sentinel to crontab? (if this fails, add it manually please)  [Yy] ";
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     crontab -l > mycron;
