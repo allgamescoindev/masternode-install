@@ -29,11 +29,11 @@ sudo ufw allow 7208;
 sudo ufw --force enable    
 fi
 
-output "Checking if total system memory is below 2 GB, if so create swap space"
+output "Checking if total system memory is less than 2 GB, if so create swap space"
 #Check if swap need to be enabled.
 totalk=$(awk '/^MemTotal:/{print $2}' /proc/meminfo) ;
-if (( $totalk -lt 1999999 )) ; then
-    output "Total system memory is below 2 GB, attempting to create swap space";
+if [ $totalk -lt 2097152 ] ; then
+    output "Total system memory is less than 2 GB, attempting to create swap space";
     cd;
     sudo dd if=/dev/zero of=swapfile bs=1M count=3000;
     sudo mkswap swapfile;
