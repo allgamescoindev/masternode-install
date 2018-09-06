@@ -17,6 +17,7 @@ sudo apt-get update;
 sudo apt-get upgrade -y;
 sudo apt-get install -y zip unzip curl git wget;
 
+if [[ ("$UFW" == "y" || "$UFW" == "Y" || "$UFW" == "") ]]; then
 output "Install UFW and configure ports"
 sudo apt-get install ufw
 sudo ufw default deny incoming
