@@ -54,5 +54,5 @@ if [ $? -eq 0 ] ; then
     output "=== Your Node ip: $NODEIP:7207 | rpcuser=$RPCUSER | rpcpassword=$RPCPASSWORD ===";
     output "=== Check blockchain sync with command: docker exec -it $containername bash allgamescoin-cli getblockcount ";
     output "=== Check node status with command: docker exec -it $containername bash allgamescoin-cli masternode status";
-    output "=== Local wallet masternode.conf : mn1 $NODEIP:$PORT_1 $masternodekey tx_id(look for it in history) digit(0 or 1) ";
+    output "=== Local wallet masternode.conf : mn1 $NODEIP:7207 $masternodekey tx_id(look for it in history) digit(0 or 1) ";
 fi
