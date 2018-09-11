@@ -76,7 +76,7 @@ echo "externalip=$NODEIP:7208" >> ~/.allgamescoincore/allgamescoin.conf;
 echo "masternode=1" >> ~/.allgamescoincore/allgamescoin.conf;
 echo "masternodeprivkey=$masternodekey" >> ~/.allgamescoincore/allgamescoin.conf;
 
-sudo sed -i '13i\allgamescoind --daemon -datadir=$HOME/.allgamescoincore'  /etc/rc.local;
+sudo sed -i '13i\allgamescoind --daemon -datadir=/root/.allgamescoincore'  /etc/rc.local;
 
 output "Run allgamescoind";
 allgamescoind --daemon -datadir=$HOME/.allgamescoincore
