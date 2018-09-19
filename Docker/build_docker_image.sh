@@ -46,7 +46,7 @@ NODEIP=$(curl -s4 api.ipify.org);
 
 output "Building Docker image";
 
-sudo docker build -t $imagename --build-arg PRIVKEY_ARG=$masternodekey --build-arg PORT_ARG=7207 --build-arg RPCUSER=$RPCUSER --build-arg RPCPASSWORD=$RPCPASSWORD .;
+sudo docker build -t $imagename --build-arg PRIVKEY_ARG=$masternodekey --build-arg PORT_ARG=7208 --build-arg RPCUSER=$RPCUSER --build-arg RPCPASSWORD=$RPCPASSWORD .;
 
 if [ $? -eq 0 ] ; then
     output "=== Succesfull built Docker image ===";
